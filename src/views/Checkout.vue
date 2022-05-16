@@ -105,16 +105,17 @@
 
       <Card :class="{'disabled': !checkedAccount || accounts.length < 1 || balance < 1 || !isReady}">
         <h2>3. Schedule your time</h2>
-
+        <p>Spend one SPOT token to unlock scheduling.</p>
         <template v-if="isReady">
-         <div
+          <Button @click="spendSpot" style="margin: 10px">Spend 1 SPOT</Button>
+          <div
             v-show="status"
             class="meetings-iframe-container"
+            :class="{'disabled': !schedulingIsPaid}"
             data-src="https://meetings.hubspot.com/strelka?embed=true"
           ></div>
         </template>
       </Card>
-
 
     </div>
   </div>
@@ -123,14 +124,20 @@
 <script>
 import { checkout } from "../services/api";
 import stripe from "../services/stripe";
-import { getProvider, getInstance, getAccounts } from "../services/substrate";
+import {
+  getProvider,
+  getInstance,
+  getAccounts,
+  sendAsset,
+} from "../services/substrate";
 import config from "../config";
 import { loadScript } from "../utils/tools";
 
 export default {
   components: {
     pricePerLesson: () => import('../components/includes/PricePerLesson.vue'),
-    Spot: () => import('../components/includes/Spot.vue')
+    Spot: () => import('../components/includes/Spot.vue'),
+    Button: () => import ('../ui/button/index.vue')
   },
   data() {
     return {
@@ -141,7 +148,8 @@ export default {
       balance: 0,
       accounts: [],
       accountDefault: '',
-      status: false
+      status: false,
+      schedulingIsPaid: false,
     };
   },
   async created() {
@@ -259,7 +267,17 @@ export default {
         console.log(error);
       }
       this.proccess = false;
-    }
+    },
+    async spendSpot() {
+      const SPOT_STATEMINE_ASSET_ID = 1441
+      const STRELKA_SPOT_2 = "GJLkKWzoLPjhdWwMWUu1K2Tmp69CRnsB14WhDjMmkF4X4et"
+      const success = await sendAsset(this.account, STRELKA_SPOT_2, SPOT_STATEMINE_ASSET_ID, 1)
+      if (!success) {
+        console.log("Spot token not spent")
+        return
+      }
+      this.schedulingIsPaid = true
+    },
   }
 };
 </script>
