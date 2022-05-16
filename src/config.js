@@ -5,7 +5,7 @@ export default {
   PRICE_PER_LESSON_CENTS: process.env.VUE_APP_PRICE_PER_LESSON_CENTS ?? 4200,
   ID_ASSET: 1441,
   SUBSTRATE: {
-    url: "wss://statemine-rpc.polkadot.io",
+    url: "wss://statemine.rpc.robonomics.network",
     types: {
       Address: "AccountId",
       LookupSource: "AccountId",
