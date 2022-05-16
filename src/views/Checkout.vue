@@ -240,8 +240,8 @@ export default {
         this.unsubscribe = await this.api.query.assets.account(
           config.ID_ASSET,
           newValue,
-          ({ balance: currentFree }) => {
-            this.balance = currentFree.toNumber();
+          (info) => {
+            this.balance = info.value.balance.toNumber();
           }
         );
       }
