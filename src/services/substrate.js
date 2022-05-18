@@ -141,7 +141,7 @@ export async function signAndSend(account, tx, options = {}) {
   });
 }
 
-export async function sendAsset(from, to, asset_id, amount) {
+export async function sendAsset(from, to, asset_id, amount, finalizationCallback) {
   const injector = await web3FromAddress(from);
   const tx = api.tx.utility.batch([
     api.tx.assets.transfer(asset_id, to, amount),
@@ -167,6 +167,7 @@ export async function sendAsset(from, to, asset_id, amount) {
         });
       } else if (result.status.isFinalized) {
         console.log("Asset send tx is finalized");
+        finalizationCallback()
       }
     })
     return true;

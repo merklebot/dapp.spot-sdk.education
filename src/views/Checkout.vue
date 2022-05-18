@@ -103,11 +103,15 @@
       </Card>
 
 
-      <Card :class="{'disabled': !checkedAccount || accounts.length < 1 || balance < 1 || !isReady}">
+      <Card :class="{'disabled': !checkedAccount || accounts.length < 1 || (balance < 1 && !(schedulingPaymentTxSent || schedulingIsPaid)) || !isReady}">
         <h2>3. Schedule your time</h2>
-        <p>Spend one SPOT token to unlock scheduling.</p>
+        <p>Scheduling costs 1 SPOT token.</p>
         <template v-if="isReady">
-          <Button @click="spendSpot" style="margin: 10px">Spend 1 SPOT</Button>
+          <span>
+            <Button @click="spendSpot" style="margin: 10px" :class="{'disabled': schedulingPaymentTxSent || schedulingIsPaid}">Unlock scheduling</Button>
+            <span v-if="!schedulingIsPaid && schedulingPaymentTxSent">Waiting for payment finalization...</span>
+          </span>
+
           <div
             v-show="status"
             class="meetings-iframe-container"
@@ -150,6 +154,7 @@ export default {
       accountDefault: '',
       status: false,
       schedulingIsPaid: false,
+      schedulingPaymentTxSent: false,
     };
   },
   async created() {
@@ -241,7 +246,12 @@ export default {
           config.ID_ASSET,
           newValue,
           (info) => {
-            this.balance = info.value.balance.toNumber();
+            console.log("info:", info)
+            try {
+              this.balance = info.value.balance.toNumber();
+            } catch (e) {
+              this.balance = 0;
+            }
           }
         );
       }
@@ -271,13 +281,19 @@ export default {
     async spendSpot() {
       const SPOT_STATEMINE_ASSET_ID = 1441
       const STRELKA_SPOT_2 = "GJLkKWzoLPjhdWwMWUu1K2Tmp69CRnsB14WhDjMmkF4X4et"
-      const success = await sendAsset(this.account, STRELKA_SPOT_2, SPOT_STATEMINE_ASSET_ID, 1)
+      const success = await sendAsset(
+        this.account, STRELKA_SPOT_2, SPOT_STATEMINE_ASSET_ID, 1, this.onSpotSpendingSuccess
+      )
       if (!success) {
         console.log("Spot token not spent")
         return
       }
-      this.schedulingIsPaid = true
+      this.schedulingPaymentTxSent = true
     },
+    async onSpotSpendingSuccess() {
+      console.log("onSpotSpendingSuccess")
+      this.schedulingIsPaid = true
+    }
   }
 };
 </script>
