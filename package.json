@@ -12,7 +12,7 @@
     "@polkadot/extension-dapp": "^0.43.2",
     "@polkadot/ui-keyring": "^2.2.1",
     "axios": "^0.21.1",
-    "core-js": "^3.6.5",
+    "core-js": "^3.22.5",
     "stripe": "^8.154.0",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.2",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
-    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
