@@ -21,9 +21,9 @@
 
       <section class="layout-narrow">
         <h2>
-          <router-link :to="{ name: 'lesson', params: { lesson: lessons[0].fileName } }" class="highlightText">
+          <a href="https://robonomics.academy/en/online-courses/boston-dynamics-course/" class="highlightText">
             1. Learn
-          </router-link>
+          </a>
           <span class="label">Free</span>
         </h2>
         <p>We recommend you study the theoretical materials before you rent the
@@ -43,7 +43,7 @@
 
       <section class="layout-narrow">
         <h2>3. Practice your skills</h2>
-        <p>When your session starts, you can connect to the Spot robot by SSH and join a Google Meet meeting to watch the robot by the camera. While working, use our lessons presented in this dapp and Spot documentation at dev.bostondynamics.com</p>
+        <p>When your session starts, you can connect to the Spot robot by SSH and join a Google Meet meeting to watch the robot by the camera. While working, use our lessons presented in Robonomics Academy and Spot documentation at dev.bostondynamics.com</p>
       </section>
 
       <section class="layout-narrow">

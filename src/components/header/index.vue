@@ -6,25 +6,25 @@
     </router-link>
 
     <nav class="nav-g">
-      <router-link :to="{ name: 'home' }" active-class="active" exact>
-        Intro
-      </router-link>
+<!--      <router-link :to="{ name: 'home' }" active-class="active" exact>-->
+<!--        Intro-->
+<!--      </router-link>-->
 
-      <details class="nav-expand highlightText" tabindex="0">
-         <summary>Lessons</summary>
+<!--      <details class="nav-expand highlightText" tabindex="0">-->
+<!--         <summary>Lessons</summary>-->
 
-         <nav class="nav-v">
-            <router-link
-              v-for="(lesson, k) in lessons"
-              :key="k"
-              :to="{ name: 'lesson', params: { lesson: lesson.fileName } }"
-              active-class="active"
-              exact
-            >
-              {{ lesson.title }}
-            </router-link>
-          </nav>
-      </details>
+<!--         <nav class="nav-v">-->
+<!--            <router-link-->
+<!--              v-for="(lesson, k) in lessons"-->
+<!--              :key="k"-->
+<!--              :to="{ name: 'lesson', params: { lesson: lesson.fileName } }"-->
+<!--              active-class="active"-->
+<!--              exact-->
+<!--            >-->
+<!--              {{ lesson.title }}-->
+<!--            </router-link>-->
+<!--          </nav>-->
+<!--      </details>-->
 
       <router-link :to="{ name: 'checkout' }" active-class="active" exact class="highlightText">
         Rent Spot
